@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Ouna Privacy Policy">
+    <title>Privacy Policy — Ouna</title>
+    <style>
+        :root {
+            --bg-primary: #fbfbfd;
+            --bg-secondary: #f5f5f7;
+            --bg-tertiary: #eaeaec;
+            --text-primary: #1d1d1f;
+            --text-secondary: #6e6e73;
+            --text-tertiary: #86868b;
+            --accent: #5e5ce6;
+            --accent-glow: rgba(94, 92, 230, 0.15);
+            --card-bg: #ffffff;
+            --card-shadow: 0 12px 40px rgba(0,0,0,0.08);
+            --nav-bg: rgba(251, 251, 253, 0.72);
+            --border: rgba(60,60,67,0.12);
+            --divider: rgba(60,60,67,0.08);
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-primary: #0a0a0c;
+                --bg-secondary: #161619;
+                --bg-tertiary: #222226;
+                --text-primary: #f5f5f7;
+                --text-secondary: #a1a1a6;
+                --text-tertiary: #6e6e73;
+                --accent: #7d7aff;
+                --accent-glow: rgba(125, 122, 255, 0.2);
+                --card-bg: #1c1c1f;
+                --card-shadow: 0 12px 40px rgba(0,0,0,0.4);
+                --nav-bg: rgba(10, 10, 12, 0.72);
+                --border: rgba(84,84,88,0.2);
+                --divider: rgba(84,84,88,0.15);
+            }
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, SF Pro Display, SF Pro Text, 'Helvetica Neue', sans-serif;
+            font-size: 17px;
+            line-height: 1.5;
+            letter-spacing: -0.022px;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+        }
+        
+        /* Animated gradient background */
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            background: 
+                radial-gradient(ellipse 80% 60% at 50% -20%, var(--accent-glow), transparent),
+                radial-gradient(ellipse 60% 40% at 90% 10%, rgba(118, 75, 162, 0.08), transparent);
+            pointer-events: none;
+        }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 52px;
+            background: var(--nav-bg);
+            border-bottom: 0.5px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            z-index: 1000;
+        }
+        .nav-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        /* Container */
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 80px 20px 60px;
+        }
+        @media (max-width: 400px) {
+            .container { padding: 70px 16px 40px; }
+        }
+        
+        /* Header */
+        header { margin-bottom: 36px; }
+        h1 {
+            font-size: 36px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        .last-updated {
+            display: inline-block;
+            font-size: 13px;
+            color: var(--text-tertiary);
+            margin-top: 12px;
+            padding: 6px 12px;
+            background: var(--bg-secondary);
+            border-radius: 20px;
+        }
+        
+        /* Divider */
+        .divider {
+            height: 1px;
+            background: var(--divider);
+            margin: 36px 0;
+        }
+        
+        /* Sections */
+        h2 {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            margin: 40px 0 12px;
+            padding-top: 32px;
+            border-top: 0.5px solid var(--divider);
+            color: var(--text-primary);
+        }
+        h2:first-of-type { border-top: none; padding-top: 0; margin-top: 0; }
+        
+        h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 24px 0 8px;
+        }
+        
+        p, li { color: var(--text-secondary); margin-bottom: 14px; line-height: 1.6; }
+        ul { margin: 0 0 20px 20px; }
+        li { margin-bottom: 8px; }
+        strong { font-weight: 600; color: var(--text-primary); }
+        
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        
+        /* Highlight box */
+        .highlight-box {
+            background: var(--accent-glow);
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border: 1px solid var(--accent);
+        }
+        
+        /* Data table */
+        .data-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 16px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 0.5px solid var(--border);
+        }
+        .data-table th, .data-table td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 0.5px solid var(--border);
+        }
+        .data-table th {
+            background: var(--bg-secondary);
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-tertiary);
+        }
+        .data-table tr:last-child td { border-bottom: none; }
+        .data-table tr:nth-child(even) { background: var(--bg-secondary); }
+        
+        /* Contact box */
+        .contact-box {
+            background: var(--bg-secondary);
+            padding: 24px;
+            border-radius: 16px;
+            margin-top: 32px;
+            border: 1px solid var(--border);
+        }
+        .contact-box h3 { margin-top: 0; font-size: 17px; }
+        
+        /* Footer */
+        footer {
+            border-top: 0.5px solid var(--border);
+            padding: 32px 20px 40px;
+            text-align: center;
+            color: var(--text-tertiary);
+            font-size: 13px;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+        .footer-links a { color: var(--text-secondary); }
+    </style>
+</head>
+<body>
+    <div class="bg-gradient"></div>
+
+    <nav class="nav">
+        <span class="nav-title">Privacy Policy</span>
+    </nav>
+
+    <div class="container">
+        <header>
+            <h1>Privacy Policy</h1>
+            <p class="subtitle">Ouna Academic Planner</p>
+            <span class="last-updated">Updated April 12, 2026</span>
+        </header>
+
+        <div class="divider"></div>
+
+        <p>At Ouna, we believe privacy is a fundamental right. This policy explains how we collect, use, and protect your information.</p>
+
+        <h2>Information We Collect</h2>
+
+        <h3>Data You Provide</h3>
+        <ul>
+            <li><strong>Account Information:</strong> Name and email when you create an account.</li>
+            <li><strong>Profile Photos:</strong> Profile pictures you choose to upload.</li>
+            <li><strong>Planner Content:</strong> Tasks, schedules, courses, and any content you add.</li>
+        </ul>
+
+        <h3>Automatically Collected Information</h3>
+        <ul>
+            <li><strong>Device Information:</strong> Device type, iOS version, and app version.</li>
+            <li><strong>Usage Data:</strong> Features you use, session duration, and interaction patterns.</li>
+        </ul>
+
+        <h2>How We Use Your Information</h2>
+        <ul>
+            <li>To provide and personalize our academic planning services</li>
+            <li>To sync your data across your devices using iCloud</li>
+            <li>To improve and optimize your experience</li>
+            <li>To communicate with you about app updates and support</li>
+        </ul>
+
+        <div class="highlight-box">
+            <h3>📸 Photo Library Access</h3>
+            <p>Ouna uses Apple PhotosUI to let you select profile pictures. We only access photos you explicitly choose. Your photo library is never uploaded to our servers—all images remain on your device.</p>
+        </div>
+
+        <h2>Data Storage & Security</h2>
+        <p>Your data is stored locally on your device and synced via your personal iCloud account. We implement industry-standard security measures to protect your information.</p>
+
+        <h2>Data Sharing</h2>
+        <p>We do not sell, trade, or transfer your personal information to outside parties. Your data lives in your personal iCloud and is accessible only to you.</p>
+
+        <h2>Third-Party Services</h2>
+        <table class="data-table">
+            <tr><th>Service</th><th>Purpose</th></tr>
+            <tr><td>Apple iCloud</td><td>Data sync and backup</td></tr>
+            <tr><td>Apple CloudKit</td><td>Secure data synchronization</td></tr>
+        </table>
+        <p>These services are governed by Apple's Privacy Policy.</p>
+
+        <h2>Children's Privacy</h2>
+        <p>Ouna does not knowingly collect personal information from children under 13. If we become aware of such collection, we delete it promptly.</p>
+
+        <h2>Your Rights</h2>
+        <p>You may access, correct, or delete your personal information at any time through the app settings.</p>
+
+        <div class="contact-box">
+            <h3>Contact Us</h3>
+            <p>Questions about this Privacy Policy?</p>
+            <p><strong>Email:</strong> <a href="mailto:Ouna_app@proton.me">Ouna_app@proton.me</a></p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="terms.html">Terms</a>
+            <a href="https://ouuna.app">Website</a>
+        </div>
+        <p>&copy; 2026 Ouna. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Ouna - Your Academic Planner. Organize your courses, tracks, and academic life with ease.">
+    <meta name="theme-color" content="#667eea">
+    <title>Ouna — Academic Planner</title>
+    <style>
+        :root {
+            --bg-primary: #fbfbfd;
+            --bg-secondary: #f5f5f7;
+            --bg-tertiary: #eaeaec;
+            --text-primary: #1d1d1f;
+            --text-secondary: #6e6e73;
+            --text-tertiary: #86868b;
+            --accent: #5e5ce6;
+            --accent-light: #7d7aff;
+            --accent-glow: rgba(94, 92, 230, 0.15);
+            --accent-secondary: #34c759;
+            --orange: #ff9500;
+            --red: #ff3b30;
+            --purple: #667eea;
+            --purple-dark: #764ba2;
+            --purple-glow: rgba(102, 126, 234, 0.4);
+            --card-bg: #ffffff;
+            --card-shadow: 0 12px 40px rgba(0,0,0,0.08);
+            --nav-bg: rgba(251, 251, 253, 0.72);
+            --border: rgba(60,60,67,0.12);
+            --divider: rgba(60,60,67,0.08);
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-primary: #0a0a0c;
+                --bg-secondary: #161619;
+                --bg-tertiary: #222226;
+                --text-primary: #f5f5f7;
+                --text-secondary: #a1a1a6;
+                --text-tertiary: #6e6e73;
+                --accent: #7d7aff;
+                --accent-light: #9999ff;
+                --accent-glow: rgba(125, 122, 255, 0.2);
+                --accent-secondary: #30d158;
+                --orange: #ff9f0a;
+                --red: #ff453a;
+                --card-bg: #1c1c1f;
+                --card-shadow: 0 12px 40px rgba(0,0,0,0.4);
+                --nav-bg: rgba(10, 10, 12, 0.72);
+                --border: rgba(84,84,88,0.2);
+                --divider: rgba(84,84,88,0.15);
+            }
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, SF Pro Display, SF Pro Text, 'Helvetica Neue', sans-serif;
+            font-size: 17px;
+            line-height: 1.5;
+            letter-spacing: -0.022px;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-size-adjust: 100%;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* Animated gradient background */
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            background: 
+                radial-gradient(ellipse 80% 60% at 50% -20%, var(--accent-glow), transparent),
+                radial-gradient(ellipse 60% 40% at 90% 10%, rgba(118, 75, 162, 0.08), transparent),
+                radial-gradient(ellipse 50% 30% at 10% 90%, rgba(102, 126, 234, 0.06), transparent);
+            pointer-events: none;
+        }
+        .bg-gradient::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle at 30% 20%, var(--accent-glow), transparent 40%),
+                radial-gradient(circle at 70% 80%, rgba(118, 75, 162, 0.1), transparent 40%);
+            animation: float 30s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(2%, 1%) rotate(1deg); }
+            66% { transform: translate(-1%, 2%) rotate(-1deg); }
+        }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 52px;
+            background: var(--nav-bg);
+            border-bottom: 0.5px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            z-index: 1000;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            font-size: 18px;
+            color: var(--text-primary);
+        }
+        .nav-logo-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--purple-dark) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        
+        /* Main container */
+        .container {
+            max-width: 380px;
+            margin: 0 auto;
+            padding: 80px 20px 50px;
+        }
+        @media (max-width: 400px) {
+            .container { padding: 70px 16px 40px; }
+        }
+        
+        /* Hero section */
+        .hero {
+            text-align: center;
+            padding: 40px 0 48px;
+        }
+        
+        /* App icon with glow */
+        .app-icon-wrap {
+            position: relative;
+            margin-bottom: 28px;
+        }
+        .app-icon-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--purple-dark) 100%);
+            border-radius: 28px;
+            filter: blur(32px);
+            opacity: 0.4;
+            animation: pulse 4s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.4; }
+            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.25; }
+        }
+        .app-icon {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, #7d7aff 0%, #5856d6 50%, #bf5af2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            box-shadow: 
+                0 16px 48px var(--purple-glow),
+                0 0 0 1px rgba(255,255,255,0.1) inset;
+        }
+        .app-icon-inner {
+            font-size: 48px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+        
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.6px;
+            margin-bottom: 6px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .tagline {
+            font-size: 18px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        .tagline-accent {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: var(--accent-glow);
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--accent);
+            margin-top: 4px;
+        }
+        
+        /* CTA buttons */
+        .cta {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 44px;
+        }
+        .cta-button {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px 28px;
+            background: linear-gradient(135deg, #7d7aff 0%, #5856d6 100%);
+            border-radius: 16px;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            font-size: 17px;
+            letter-spacing: -0.2px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 
+                0 8px 24px var(--purple-glow),
+                0 0 0 1px rgba(255,255,255,0.1) inset;
+            overflow: hidden;
+        }
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 16px 32px var(--purple-glow),
+                0 0 0 1px rgba(255,255,255,0.15) inset;
+        }
+        .cta-button:hover::before { opacity: 1; }
+        .cta-button:active {
+            transform: translateY(0);
+        }
+        .cta-button-secondary {
+            background: var(--bg-secondary);
+            color: var(--accent);
+            box-shadow: 
+                0 4px 16px rgba(0,0,0,0.04),
+                0 0 0 1px var(--border) inset;
+        }
+        .cta-button-secondary:hover {
+            background: var(--bg-tertiary);
+            box-shadow: 
+                0 8px 24px rgba(0,0,0,0.06),
+                0 0 0 1px var(--border) inset;
+        }
+        
+        /* Section styling */
+        .section {
+            margin-bottom: 36px;
+        }
+        .section-title {
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-tertiary);
+            margin-bottom: 14px;
+            padding-left: 4px;
+        }
+        
+        /* Feature cards */
+        .features {
+            display: grid;
+            gap: 12px;
+        }
+        .feature-card {
+            display: flex;
+            align-items: center;
+            padding: 18px 20px;
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 32px rgba(0,0,0,0.1);
+        }
+        .feature-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent-glow) 0%, rgba(118, 75, 162, 0.1) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+        .feature-content h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 2px;
+            color: var(--text-primary);
+        }
+        .feature-content p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin: 0;
+            line-height: 1.4;
+        }
+        
+        /* Link list styling */
+        .link-list {
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+        .link-item {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: background 0.2s ease;
+            border-bottom: 0.5px solid var(--divider);
+        }
+        .link-item:last-child { border-bottom: none; }
+        .link-item:hover { background: var(--bg-secondary); }
+        .link-item:active { background: var(--bg-tertiary); }
+        
+        .link-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 14px;
+            font-size: 16px;
+        }
+        .link-icon.instagram { 
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); 
+            color: white;
+        }
+        .link-icon.privacy { background: var(--accent); color: white; }
+        .link-icon.terms { background: var(--text-tertiary); color: white; }
+        .link-icon.email { background: var(--accent-secondary); color: white; }
+        
+        .link-text {
+            flex: 1;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .link-arrow {
+            color: var(--text-tertiary);
+            font-size: 22px;
+            font-weight: 300;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 0 24px;
+            color: var(--text-tertiary);
+            font-size: 13px;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: var(--accent); }
+        .legal {
+            line-height: 1.6;
+            opacity: 0.8;
+        }
+        
+        /* Decorative floating orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            pointer-events: none;
+            z-index: -1;
+        }
+        .orb-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--accent);
+            opacity: 0.08;
+            top: -100px;
+            right: -100px;
+            animation: float-1 20s ease-in-out infinite;
+        }
+        .orb-2 {
+            width: 200px;
+            height: 200px;
+            background: #bf5af2;
+            opacity: 0.06;
+            bottom: 20%;
+            left: -80px;
+            animation: float-2 25s ease-in-out infinite;
+        }
+        @keyframes float-1 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-20px, 30px); }
+        }
+        @keyframes float-2 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(20px, -20px); }
+        }
+        
+        /* Screenshots section */
+        .screenshots {
+            display: grid;
+            gap: 16px;
+        }
+        .screenshot-card {
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .screenshot-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 48px 24px;
+            text-align: center;
+        }
+        .screenshot-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+            opacity: 0.6;
+        }
+        .screenshot-placeholder p {
+            font-size: 15px;
+            color: var(--text-tertiary);
+            margin: 0;
+            font-weight: 500;
+        }
+        
+        /* Game styles */
+        .game-card { cursor: pointer; }
+        
+        .game-area {
+            display: none;
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            margin-top: 12px;
+            box-shadow: var(--card-shadow);
+        }
+        .game-area.active { display: block; }
+        
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 16px;
+            background: var(--bg-secondary);
+            border-bottom: 0.5px solid var(--border);
+        }
+        .game-score {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--accent);
+        }
+        .game-close {
+            width: 28px;
+            height: 28px;
+            border: none;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .game-container {
+            height: 300px;
+            position: relative;
+            background: linear-gradient(180deg, var(--accent-glow) 0%, var(--bg-secondary) 100%);
+        }
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            animation: rise 3s linear forwards;
+            transition: transform 0.1s;
+        }
+        .bubble:hover { transform: scale(1.1); }
+        .bubble:active { transform: scale(0.9); }
+        @keyframes rise {
+            from { bottom: -60px; }
+            to { bottom: 320px; }
+        }
+        
+        .game-over {
+            display: none;
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        .game-over.active { display: flex; }
+        .game-over p { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+        .final-score { font-size: 16px; opacity: 0.8; }
+        .game-over button {
+            margin-top: 20px;
+            padding: 12px 28px;
+            background: linear-gradient(135deg, #7d7aff, #5856d6);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-gradient"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <nav class="nav">
+        <div class="nav-logo">
+            <span class="nav-logo-icon">📚</span>
+            Ouna
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="hero">
+            <div class="app-icon-wrap">
+                <div class="app-icon-glow"></div>
+                <div class="app-icon">
+                    <span class="app-icon-inner">📚</span>
+                </div>
+            </div>
+            <h1>Ouna</h1>
+            <p class="tagline">Your Academic Planner</p>
+            <div class="tagline-accent">
+                <span>✨</span> Coming Soon
+            </div>
+        </header>
+
+        <div class="cta">
+            <a href="https://testflight.apple.com/join/YOUR_LINK" class="cta-button">
+                Join TestFlight Beta
+            </a>
+            <a href="mailto:Ouna_app@proton.me?subject=TestFlight Request" class="cta-button cta-button-secondary">
+                Request Beta Access
+            </a>
+        </div>
+
+        <section class="section">
+            <h2 class="section-title">Screenshots</h2>
+            <div class="screenshots">
+                <div class="screenshot-card">
+                    <div class="screenshot-placeholder">
+                        <span class="screenshot-icon">📱</span>
+                        <p>Screenshot Coming Soon</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Play</h2>
+            <div class="feature-card game-card" onclick="startGame()">
+                <span class="feature-icon">🎮</span>
+                <div class="feature-content">
+                    <h3>Bubble Pop</h3>
+                    <p>Pop bubbles before they escape!</p>
+                </div>
+            </div>
+            <div class="game-area" id="gameArea">
+                <div class="game-header">
+                    <span class="game-score">Score: <span id="score">0</span></span>
+                    <button class="game-close" onclick="closeGame()">✕</button>
+                </div>
+                <div class="game-container" id="gameContainer"></div>
+                <div class="game-over" id="gameOver">
+                    <p>Game Over!</p>
+                    <p class="final-score">Final Score: <span id="finalScore">0</span></p>
+                    <button onclick="startGame()">Play Again</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Features</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <span class="feature-icon">📅</span>
+                    <div class="feature-content">
+                        <h3>Visual Planner</h3>
+                        <p>Organize your schedule with beautiful daily blocks</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">📚</span>
+                    <div class="feature-content">
+                        <h3>Course Tracking</h3>
+                        <p>Track courses, assignments & grades in one place</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🧵</span>
+                    <div class="feature-content">
+                        <h3>Threads</h3>
+                        <p>Connect related tasks together for better focus</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">☁️</span>
+                    <div class="feature-content">
+                        <h3>iCloud Sync</h3>
+                        <p>Your data syncs seamlessly across all devices</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Connect</h2>
+            <div class="link-list">
+                <a href="https://instagram.com/Ouna_app" class="link-item">
+                    <span class="link-icon instagram">📷</span>
+                    <span class="link-text">@Ouna_app</span>
+                    <span class="link-arrow">›</span>
+                </a>
+                <a href="mailto:Ouna_app@proton.me" class="link-item">
+                    <span class="link-icon email">✉️</span>
+                    <span class="link-text">Ouna_app@proton.me</span>
+                    <span class="link-arrow">›</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Information</h2>
+            <div class="link-list">
+                <a href="privacy-policy.html" class="link-item">
+                    <span class="link-icon privacy">🔒</span>
+                    <span class="link-text">Privacy Policy</span>
+                    <span class="link-arrow">›</span>
+                </a>
+                <a href="terms.html" class="link-item">
+                    <span class="link-icon terms">📋</span>
+                    <span class="link-text">Terms of Service</span>
+                    <span class="link-arrow">›</span>
+                </a>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="privacy-policy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+            </div>
+            <p class="legal">&copy; 2026 Ouna. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Ouna Terms of Service">
+    <title>Terms of Service — Ouna</title>
+    <style>
+        :root {
+            --bg-primary: #fbfbfd;
+            --bg-secondary: #f5f5f7;
+            --bg-tertiary: #eaeaec;
+            --text-primary: #1d1d1f;
+            --text-secondary: #6e6e73;
+            --text-tertiary: #86868b;
+            --accent: #5e5ce6;
+            --accent-glow: rgba(94, 92, 230, 0.15);
+            --card-bg: #ffffff;
+            --card-shadow: 0 12px 40px rgba(0,0,0,0.08);
+            --nav-bg: rgba(251, 251, 253, 0.72);
+            --border: rgba(60,60,67,0.12);
+            --divider: rgba(60,60,67,0.08);
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-primary: #0a0a0c;
+                --bg-secondary: #161619;
+                --bg-tertiary: #222226;
+                --text-primary: #f5f5f7;
+                --text-secondary: #a1a1a6;
+                --text-tertiary: #6e6e73;
+                --accent: #7d7aff;
+                --accent-glow: rgba(125, 122, 255, 0.2);
+                --card-bg: #1c1c1f;
+                --card-shadow: 0 12px 40px rgba(0,0,0,0.4);
+                --nav-bg: rgba(10, 10, 12, 0.72);
+                --border: rgba(84,84,88,0.2);
+                --divider: rgba(84,84,88,0.15);
+            }
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, SF Pro Display, SF Pro Text, 'Helvetica Neue', sans-serif;
+            font-size: 17px;
+            line-height: 1.5;
+            letter-spacing: -0.022px;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+        }
+        
+        /* Animated gradient background */
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            background: 
+                radial-gradient(ellipse 80% 60% at 50% -20%, var(--accent-glow), transparent),
+                radial-gradient(ellipse 60% 40% at 90% 10%, rgba(118, 75, 162, 0.08), transparent);
+            pointer-events: none;
+        }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 52px;
+            background: var(--nav-bg);
+            border-bottom: 0.5px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            z-index: 1000;
+        }
+        .nav-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        /* Container */
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 80px 20px 60px;
+        }
+        @media (max-width: 400px) {
+            .container { padding: 70px 16px 40px; }
+        }
+        
+        /* Header */
+        header { margin-bottom: 36px; }
+        h1 {
+            font-size: 36px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        .last-updated {
+            display: inline-block;
+            font-size: 13px;
+            color: var(--text-tertiary);
+            margin-top: 12px;
+            padding: 6px 12px;
+            background: var(--bg-secondary);
+            border-radius: 20px;
+        }
+        
+        /* Divider */
+        .divider {
+            height: 1px;
+            background: var(--divider);
+            margin: 36px 0;
+        }
+        
+        /* Sections */
+        h2 {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            margin: 40px 0 12px;
+            padding-top: 32px;
+            border-top: 0.5px solid var(--divider);
+            color: var(--text-primary);
+        }
+        h2:first-of-type { border-top: none; padding-top: 0; margin-top: 0; }
+        
+        h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 24px 0 8px;
+        }
+        
+        p, li { color: var(--text-secondary); margin-bottom: 14px; line-height: 1.6; }
+        ul { margin: 0 0 20px 20px; }
+        li { margin-bottom: 8px; }
+        strong { font-weight: 600; color: var(--text-primary); }
+        
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        
+        /* Contact box */
+        .contact-box {
+            background: var(--bg-secondary);
+            padding: 24px;
+            border-radius: 16px;
+            margin-top: 32px;
+            border: 1px solid var(--border);
+        }
+        .contact-box h3 { margin-top: 0; font-size: 17px; }
+        
+        /* Footer */
+        footer {
+            border-top: 0.5px solid var(--border);
+            padding: 32px 20px 40px;
+            text-align: center;
+            color: var(--text-tertiary);
+            font-size: 13px;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+        .footer-links a { color: var(--text-secondary); }
+    </style>
+</head>
+<body>
+    <div class="bg-gradient"></div>
+
+    <nav class="nav">
+        <span class="nav-title">Terms of Service</span>
+    </nav>
+
+    <div class="container">
+        <header>
+            <h1>Terms of Service</h1>
+            <p class="subtitle">Ouna Academic Planner</p>
+            <span class="last-updated">Effective April 12, 2026</span>
+        </header>
+
+        <div class="divider"></div>
+
+        <p>By downloading and using Ouna, you agree to these terms. If you don't agree, don't use the app.</p>
+
+        <h2>1. Using Ouna</h2>
+        <p>You may use Ouna for personal, non-commercial academic planning. You agree to:</p>
+        <ul>
+            <li>Use the app as intended</li>
+            <li>Not reverse engineer or modify the app</li>
+            <li>Not copy content beyond reasonable personal use</li>
+        </ul>
+
+        <h2>2. Your Data</h2>
+        <p>You own all content you add to Ouna. We store your data locally and via iCloud sync at your direction. You're responsible for backing up important content.</p>
+
+        <h2>3. Account & Registration</h2>
+        <p>Ouna may offer account creation. You agree to provide accurate information and keep your credentials secure.</p>
+
+        <h2>4. Subscription & Payments</h2>
+        <p>Some features may require purchase via the App Store. All purchases are governed by Apple's terms. Subscriptions auto-renew unless cancelled.</p>
+
+        <h2>5. Disclaimers</h2>
+        <p>Ouna is provided "as is." We don't guarantee the app will be always available or error-free. You're responsible for verifying academic deadlines.</p>
+
+        <h2>6. Limitation of Liability</h2>
+        <p>To the maximum extent permitted by law, Ouna is not liable for indirect, incidental, or consequential damages from using the app.</p>
+
+        <h2>7. Changes to Terms</h2>
+        <p>We may update these terms. Continued use after changes means you accept the new terms.</p>
+
+        <h2>8. Termination</h2>
+        <p>We may suspend or terminate access if you violate these terms. You may stop using Ouna at any time.</p>
+
+        <h2>9. Contact</h2>
+        <div class="contact-box">
+            <h3>Questions?</h3>
+            <p><strong>Email:</strong> <a href="mailto:Ouna_app@proton.me">Ouna_app@proton.me</a></p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="privacy-policy.html">Privacy</a>
+            <a href="https://ouuna.app">Website</a>
+        </div>
+        <p>&copy; 2026 Ouna. All rights reserved.</p>
+    </footer>
+</body>
+</html>
